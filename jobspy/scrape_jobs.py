@@ -5,6 +5,7 @@ jobs = scrape_jobs(
     site_name=["indeed", "linkedin","glassdoor"], # "google", "bayt", "naukri", "bdjobs"
     search_term="computer science internship",
     google_search_term="software engineer jobs near Calgary, AB since yesterday",
+    distance = 100,
     location="Calgary",
     results_wanted=20,
     hours_old=24,
