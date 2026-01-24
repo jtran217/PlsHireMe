@@ -10,10 +10,32 @@ jobs = scrape_jobs(
     results_wanted=20,
     hours_old=24,
     country_indeed='Canada',
+    linkedin_fetch_description=True,
     
-    # linkedin_fetch_description=True # gets more info such as description, direct job url (slower)
-    # proxies=["208.195.175.46:65095", "208.195.175.45:65095", "localhost"],
 )
 print(f"Found {len(jobs)} jobs")
 print(jobs.head())
+
+unwanted_col = [
+    "emails",
+    "interval",
+    "listing_type",
+
+    "company_url",
+    "company_url_direct",
+    "company_addresses",
+    "company_num_employees",
+    "company_revenue",
+    "company_description",
+
+    "vacancy_count",
+    "work_from_home_type",
+
+    "salary_source",   
+    "company_logo",    
+    "company_rating",
+    "company_reviews_count"
+]
+jobs.drop(columns=unwanted_col, inplace=True)
+
 jobs.to_csv("jobs.csv", quoting=csv.QUOTE_NONNUMERIC, escapechar="\\", index=False) # to_excel
