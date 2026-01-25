@@ -1,4 +1,5 @@
 import csv
+import sqlite3
 from jobspy import scrape_jobs
 
 jobs = scrape_jobs(
@@ -37,5 +38,8 @@ unwanted_col = [
     "company_reviews_count"
 ]
 jobs.drop(columns=unwanted_col, inplace=True)
+jobs.to_csv("jobs.csv", quoting=csv.QUOTE_NONNUMERIC, escapechar="\\", index=False) 
 
-jobs.to_csv("jobs.csv", quoting=csv.QUOTE_NONNUMERIC, escapechar="\\", index=False) # to_excel
+conn = sqlite3.connect('../data/jobs.db')
+jobs.to_sql('jobs',conn,if_exist='replace', index=False)
+conn.close()
